@@ -172,8 +172,6 @@ public class Cloud extends javax.swing.JFrame {
         FileReader fr=null;
         BufferedReader br =null;
         Scanner leer=null;
-        b.setJta(jt_texto);
-        
         JFileChooser jfc=new JFileChooser("./");
         FileNameExtensionFilter txt=new FileNameExtensionFilter("Archivos texto", "txt");
         jfc.setFileFilter(txt);
