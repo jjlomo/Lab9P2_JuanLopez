@@ -5,9 +5,11 @@
 package lab9p2_juanlopez;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -129,7 +131,6 @@ public class Cloud extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
 
         jProgressBar1.setBackground(new java.awt.Color(255, 255, 255));
-        jProgressBar1.setMaximum(100000);
         jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 300, 20));
 
         jt_texto.setColumns(20);
@@ -141,6 +142,11 @@ public class Cloud extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setFont(new java.awt.Font("MS Reference Sans Serif", 3, 12)); // NOI18N
         jButton2.setText("Subir");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,21 +168,25 @@ public class Cloud extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         Barra b=new Barra(jProgressBar1, true);
-        b.start();
         File archivo=null;
         FileReader fr=null;
         BufferedReader br =null;
         Scanner leer=null;
+        b.setJta(jt_texto);
+        
         JFileChooser jfc=new JFileChooser("./");
         FileNameExtensionFilter txt=new FileNameExtensionFilter("Archivos texto", "txt");
         jfc.setFileFilter(txt);
         int n=jfc.showOpenDialog(this);
         if (n==JFileChooser.APPROVE_OPTION){
+            b.run();
+            if(b.isVive()==false){
             archivo=jfc.getSelectedFile();
             try {
                 fr=new FileReader(archivo);
                 br=new BufferedReader(fr);
                 String nada="";
+                jt_texto.setText("");
                 while ((nada=br.readLine())!=null){
                     try{
                     jt_texto.append(nada+"\n");
@@ -190,10 +200,26 @@ public class Cloud extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Cloud.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
-        }
+            }
+            }
+        
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        File archivo=null;
+        FileWriter fw= null;
+        BufferedWriter bw=null;
+        String nuevo=jt_texto.getText();
+        try {
+            fw=new FileWriter(path);
+            bw =new BufferedWriter(fw);
+            bw.write(nuevo);
+            bw.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(Cloud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -224,13 +250,15 @@ public class Cloud extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            @Override
             public void run() {
                 new Cloud().setVisible(true);
             }
         });
     }
     
-
+File path;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -4,7 +4,11 @@
  */
 package lab9p2_juanlopez;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -13,10 +17,21 @@ import javax.swing.JProgressBar;
 public class Barra extends Thread{
     private JProgressBar barra;
     private boolean avanza, vive;
+    private File path;
+    private String s="";
+    private JTextArea jta;
 
     public Barra(JProgressBar barra, boolean vive) {
         this.barra = barra;
         this.vive = vive;
+    }
+
+    public Barra(JProgressBar barra, boolean avanza, boolean vive, File path, JTextArea jta) {
+        this.barra = barra;
+        this.avanza = avanza;
+        this.vive = vive;
+        this.path = path;
+        this.jta = jta;
     }
 
     public Barra(JProgressBar barra) {
@@ -48,18 +63,67 @@ public class Barra extends Thread{
         this.vive = vive;
     }
 
+    public File getPath() {
+        return path;
+    }
+
+    public void setPath(File path) {
+        this.path = path;
+    }
+
+    public String getS() {
+        return s;
+    }
+
+    public void setS(String s) {
+        this.s = s;
+    }
+
+    public JTextArea getJta() {
+        return jta;
+    }
+
+    public void setJta(JTextArea jta) {
+        this.jta = jta;
+    }
+
     @Override
     public void run() {
         while(vive){
                 barra.setValue(barra.getValue()+1);
-                if(barra.getValue()==100000){
+                if(barra.getValue()==100){
                     vive=false;
+                    barra.setValue(0);
                 }                
             try {
-                Thread.sleep(10);
+                Thread.sleep(15);
             } catch (InterruptedException ex) {
             }
         }
+      //  llenar();
+        
     }
+//    public void llenar(){
+//        File archivo=null;
+//        FileReader fr=null;
+//        BufferedReader br =null;
+//            try {
+//                archivo=path;
+//                fr=new FileReader(archivo);
+//                br=new BufferedReader(fr);
+//                String nada="";
+//                jta.setText("");
+//                while ((nada=br.readLine())!=null){
+//                    try{
+//                    jta.append(nada+"\n");
+//                    }
+//                    catch (Exception ex){
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            
+//        } catch (Exception e) {
+//        }
+//    }
     
 }

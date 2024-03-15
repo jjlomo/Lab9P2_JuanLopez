@@ -23,7 +23,7 @@ public class Hilofecha extends Thread{
     }
 
     @Override
-    public void run() {
+    public void start() {
        while (true){
         Date dia=new Date();
        DateFormat f=new SimpleDateFormat("dd:MMM:yy");
