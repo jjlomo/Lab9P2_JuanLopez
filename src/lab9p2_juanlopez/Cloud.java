@@ -177,7 +177,7 @@ public class Cloud extends javax.swing.JFrame {
         jfc.setFileFilter(txt);
         int n=jfc.showOpenDialog(this);
         if (n==JFileChooser.APPROVE_OPTION){
-            b.run();
+            b.start();
             if(b.isVive()==false){
             archivo=jfc.getSelectedFile();
             try {
