@@ -28,6 +28,7 @@ public class Hilohora extends Thread{
 
     @Override
     public void run() {
+        while (true){
        Date hora=new Date();
        DateFormat f=new SimpleDateFormat("hh:mm:ss");
             hour.setText(f.format(hora));
@@ -35,6 +36,7 @@ public class Hilohora extends Thread{
             Thread.sleep(100);
         } catch (InterruptedException ex) {
             Logger.getLogger(Hilohora.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     

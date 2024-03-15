@@ -24,6 +24,7 @@ public class Hilofecha extends Thread{
 
     @Override
     public void run() {
+       while (true){
         Date dia=new Date();
        DateFormat f=new SimpleDateFormat("dd:MMM:yy");
             fecha.setText(f.format(dia));
@@ -32,6 +33,7 @@ public class Hilofecha extends Thread{
         } catch (InterruptedException ex) {
             Logger.getLogger(Hilohora.class.getName()).log(Level.SEVERE, null, ex);
         }
+       }
     }
     
     
